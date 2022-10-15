@@ -6,17 +6,17 @@
 #include <stdexcept>
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 #define WIDTH 800
 #define HEIGHT 600
-#define NUMBER_OF_ALIENS 7
+#define NUMBER_OF_ALIENS 11
 
 using namespace std;
 
 int main() {
     const float shipSpeed = 400.f;
-    const int alienMaxSpeed = 1200;
-    const int alienMinSpeed = 500;
+    const int alienSpeed = 700;
     const float bulletSpeed = 500.f;
     bool gameOver = false;
     bool winner = false;
@@ -31,14 +31,12 @@ int main() {
     Ship player(0, shipSpeed);
     player.setLocation((WIDTH / 2) - (player.getSprite().getGlobalBounds().width / 2), HEIGHT - player.getSprite().getGlobalBounds().height);
 
-    //create a an array of enemys
-    /// Enemy alienArray[NUMBER_OF_ALIENS];
-    /* for (int i = 0; i < NUMBER_OF_ALIENS; i++)
-    {
-        Enemy alien(i, alienMinSpeed + (rand() % alienMaxSpeed));
-        alien.setLocation(i * 100 + 50, alien.getSprite().getGlobalBounds().height / 2);
+    Enemy alienArray[NUMBER_OF_ALIENS];
+    for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
+        Enemy alien(i, alienSpeed);
+        alien.setLocation(i * (alien.getSprite().getGlobalBounds().width + (WIDTH - NUMBER_OF_ALIENS * alien.getSprite().getGlobalBounds().width) / NUMBER_OF_ALIENS), alien.getSprite().getGlobalBounds().height / 2);
         alienArray[i] = alien;
-    } */
+    }
     
     sf::Clock clock;
 
@@ -64,21 +62,18 @@ int main() {
                     winner = false;
                     clock.restart();
 
-                    //reset aliens
-                    /*for (int i = 0; i < NUMBER_OF_ALIENS; i++)
-                    {
-                        Enemy alien(i, alienMinSpeed + (rand() % alienMaxSpeed));
-                        alien.setLocation(i * 100 + 50, alien.getSprite().getGlobalBounds().height / 2);
+                    for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
+                        Enemy alien(i, alienSpeed);
+                        alien.setLocation(i * (alien.getSprite().getGlobalBounds().width + (WIDTH - NUMBER_OF_ALIENS * alien.getSprite().getGlobalBounds().width) / NUMBER_OF_ALIENS), alien.getSprite().getGlobalBounds().height / 2);
                         alienArray[i] = alien;
                     }
-                    */
                     player.setLocation((WIDTH / 2) - (player.getSprite().getGlobalBounds().width / 2), HEIGHT - player.getSprite().getGlobalBounds().height);
                     player.respawn();
                 }
             }
 
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-                if (!bullet.isAlive() && !gameOver)  {
+                if (!bullet.isAlive() && !gameOver) {
                     bullet.spawn(true);
                     bullet.setLocation(player.getSprite().getPosition().x + 31, player.getSprite().getPosition().y - 15);
                 }
@@ -87,33 +82,25 @@ int main() {
 
         window.clear(sf::Color::Black);
 
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
-        {
-            if (player.getSprite().getPosition().x + player.getSprite().getGlobalBounds().width < WIDTH)
-            {
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right) {
+            if (player.getSprite().getPosition().x + player.getSprite().getGlobalBounds().width < WIDTH) {
                 player.getSprite().move(shipSpeed * deltaTime, 0.f);
             }
         }
 
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)
-        {
-            if (player.getSprite().getPosition().x > 0.f)
-            {
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left) {
+            if (player.getSprite().getPosition().x > 0.f) {
                 player.getSprite().move(-shipSpeed * deltaTime, 0.f);
             }
         }
 
-        //move aliens
-        // sf::Time t = alienClock.getElapsedTime();
-        /*if (t.asSeconds() > 0.5)
-        {
-            for (size_t i = 0; i < 7; i++)
-            {
+        sf::Time alienclock = alienClock.getElapsedTime();
+        if (alienclock.asSeconds() > 0.5) {
+            for (size_t i = 0; i < NUMBER_OF_ALIENS; i++) {
                 alienArray[i].getSprite().move(0.f, alienArray[i].getSpeed() * deltaTime);
             }
             alienClock.restart();
         }
-        */
         sf::Time bulletclock = bulletClock.getElapsedTime();
         if (bulletclock.asSeconds() > 1.0)
         {
@@ -177,16 +164,12 @@ int main() {
         if (bullet.getSprite().getPosition().y < 0)
             bullet.kill();
 
-        //draw to screen
         if (!gameOver) {
-            /*for (size_t i = 0; i < NUMBER_OF_ALIENS; i++)
-            {
-                if (alienArray[i].isAlive())
-                {
+            for (size_t i = 0; i < NUMBER_OF_ALIENS; i++) {
+                if (alienArray[i].isAlive()) {
                     alienArray[i].draw(window);
                 }
             }
-            */
             if (player.isAlive()) {
                 player.draw(window);
             }

@@ -30,6 +30,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Исходные файлы\source</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Исходные файлы\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -39,6 +42,9 @@
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
+      <Filter>Исходные файлы\source</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
   </ItemGroup>
