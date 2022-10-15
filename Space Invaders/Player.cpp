@@ -15,33 +15,27 @@ Ship::Ship(const int id, float speed) {
     sprite.setScale(sf::Vector2f(4, 4));
 }
 
-void Ship::setLocation(float xpos, float ypos)
-{
+void Ship::setLocation(float xpos, float ypos) {
     sprite.setPosition(xpos, ypos);
 }
 
-sf::Sprite& Ship::getSprite()
-{
+sf::Sprite& Ship::getSprite() {
     return sprite;
 }
 
-void Ship::kill()
-{
+void Ship::kill() {
     alive = false;
 }
 
-bool Ship::isAlive()
-{
+bool Ship::isAlive() {
     return alive;
 }
 
-void Ship::draw(sf::RenderWindow& win)
-{
+void Ship::draw(sf::RenderWindow& win) {
     sprite.setTexture(texture);
     win.draw(sprite);
 }
 
-void Ship::respawn()
-{
+void Ship::respawn() {
     alive = true;
 }

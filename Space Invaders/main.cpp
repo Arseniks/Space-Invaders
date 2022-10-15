@@ -5,6 +5,7 @@
 #include <list>
 #include <stdexcept>
 #include "Player.h"
+#include "Bullet.h"
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -25,11 +26,10 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Space Invaders");
     window.setVerticalSyncEnabled(true);
 
-    //create a bullet
-    // Bullet bullet(0, bulletSpeed);
+    Bullet bullet(0, bulletSpeed);
 
     Ship player(0, shipSpeed);
-    player.setLocation(WIDTH / 2, HEIGHT - player.getSprite().getGlobalBounds().height);
+    player.setLocation((WIDTH / 2) - (player.getSprite().getGlobalBounds().width / 2), HEIGHT - player.getSprite().getGlobalBounds().height);
 
     //create a an array of enemys
     /// Enemy alienArray[NUMBER_OF_ALIENS];
@@ -52,17 +52,13 @@ int main() {
         float deltaTime = clock.restart().asSeconds();
 
         sf::Event event;
-        while (window.pollEvent(event))
-        {
+        while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
 
-            // Close window : exit
-            if (event.type == sf::Event::MouseButtonPressed)
-            {
-                if (gameOver)
-                {
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (gameOver) {
                     // (re)start the game
                     gameOver = false;
                     winner = false;
@@ -76,27 +72,21 @@ int main() {
                         alienArray[i] = alien;
                     }
                     */
-                    //reset ship location
-                    player.setLocation(WIDTH / 2, HEIGHT - player.getSprite().getGlobalBounds().height);
+                    player.setLocation((WIDTH / 2) - (player.getSprite().getGlobalBounds().width / 2), HEIGHT - player.getSprite().getGlobalBounds().height);
                     player.respawn();
                 }
             }
 
-            /*if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
-            {
-                if (!bullet.isAlive() && !gameOver)
-                {
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+                if (!bullet.isAlive() && !gameOver)  {
                     bullet.spawn(true);
                     bullet.setLocation(player.getSprite().getPosition().x + 31, player.getSprite().getPosition().y - 15);
                 }
             }
-            */
-            // Escape pressed : exit
         }
 
         window.clear(sf::Color::Black);
 
-        //check for movement of ship
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
         {
             if (player.getSprite().getPosition().x + player.getSprite().getGlobalBounds().width < WIDTH)
@@ -123,18 +113,16 @@ int main() {
             }
             alienClock.restart();
         }
-        sf::Time bc = bulletClock.getElapsedTime();
-        if (bc.asSeconds() > 1.0)
+        */
+        sf::Time bulletclock = bulletClock.getElapsedTime();
+        if (bulletclock.asSeconds() > 1.0)
         {
             if (bullet.isAlive() && !gameOver)
             {
-                //draw bullet
                 bullet.draw(window);
-                //move bullet
                 bullet.getSprite().move(0.f, -20);
             }
         }
-        */
         //test collisions between aliens and ships
         /*for (int i = 0; i < NUMBER_OF_ALIENS; i++)
         {
@@ -170,7 +158,7 @@ int main() {
             }
         }
         */
-        int deadAliens = 0;
+        // int deadAliens = 0;
         //test for a winner
         /*for (int i = 0; i < NUMBER_OF_ALIENS; i++)
         {
@@ -186,10 +174,8 @@ int main() {
             }
         }
         */
-        //test collision with bullet and boundary
-        /*if (bullet.getSprite().getPosition().y < 0)
+        if (bullet.getSprite().getPosition().y < 0)
             bullet.kill();
-        */
 
         //draw to screen
         if (!gameOver) {

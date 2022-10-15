@@ -1,27 +1,27 @@
 #pragma once
 
-#ifndef SpriteMove_Ship_h
-#define SpriteMove_Ship_h
+#ifndef SpriteMove_Bullet_h
+#define SpriteMove_Bullet_h
+
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class Ship
-{
+class Bullet {
 public:
-    Ship(const int, float);
+    Bullet(const int, float);
     sf::Sprite& getSprite();
-
     void setLocation(float, float);
     void kill();
     bool isAlive();
-    void respawn();
+    void spawn(bool);
     void draw(sf::RenderWindow& win);
 private:
     sf::Sprite sprite;
     sf::Texture texture;
     bool alive;
+
 };
 
 #endif
