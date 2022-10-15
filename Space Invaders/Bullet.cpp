@@ -10,7 +10,7 @@ Bullet::Bullet(const int id, float speed) {
         throw invalid_argument("Bullet not loaded!");
 
     sprite.setTextureRect(sf::IntRect(118, 105, 5, 6));
-    sprite.scale(sf::Vector2f(4, 4));
+    sprite.scale(sf::Vector2f(3, 3));
 }
 
 sf::Sprite& Bullet::getSprite() {
