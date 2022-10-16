@@ -11,7 +11,7 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-#define NUMBER_OF_ALIENS 7
+#define NUMBER_OF_ALIENS 7 * 3
 
 using namespace std;
 
@@ -33,9 +33,20 @@ int main() {
     player.setLocation((WIDTH / 2) - (player.getSprite().getGlobalBounds().width / 2), HEIGHT - player.getSprite().getGlobalBounds().height);
 
     Enemy alienArray[NUMBER_OF_ALIENS];
-    for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
+    for (int i = 0; i < NUMBER_OF_ALIENS / 3; i++) {
         Enemy alien(i, alienSpeed);
         alien.setLocation(i * 75, alien.getSprite().getGlobalBounds().height / 2);
+        alienArray[i] = alien;
+    }
+    for (int i = NUMBER_OF_ALIENS / 3; i < 2 * NUMBER_OF_ALIENS / 3; i++) {
+        Enemy alien(i, alienSpeed);
+        alien.setLocation((i - NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 45);
+        alienArray[i] = alien;
+    }
+
+    for (int i = 2 * NUMBER_OF_ALIENS / 3; i < NUMBER_OF_ALIENS; i++) {
+        Enemy alien(i, alienSpeed);
+        alien.setLocation((i - 2 * NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 90);
         alienArray[i] = alien;
     }
 
@@ -84,14 +95,14 @@ int main() {
             direction = 0;
 
             for (size_t i = 0; i < NUMBER_OF_ALIENS; i++) {
-                alienArray[i].getSprite().move(0.f, 60.f);
+                alienArray[i].getSprite().move(0.f, 45.f);
             }
             alienClock.restart();
         }
         else if (!direction && alienArray[0].getSprite().getPosition().x - alienArray[0].getSpeed() * deltaTime < 0) {
             direction = 1;
             for (size_t i = 0; i < NUMBER_OF_ALIENS; i++) {
-                alienArray[i].getSprite().move(0.f, 60.f);
+                alienArray[i].getSprite().move(0.f, 45.f);
             }
             alienClock.restart();
         }
