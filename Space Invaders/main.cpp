@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <string>
 #include <stdexcept>
 #include "Player.h"
 #include "Bullet.h"
@@ -26,6 +27,12 @@ int main() {
     const float enemybulletSpeed = 15.f;
     bool gameOver = false;
     bool winner = false;
+    int playerScore = 0;
+
+    sf::Font font; 
+    font.loadFromFile("space_invaders.ttf");
+    sf::Text text("", font, 25);
+    sf::Text score_text("", font, 25);
 
     srand(time(NULL));
 
@@ -47,18 +54,18 @@ int main() {
     Enemy alienArray[NUMBER_OF_ALIENS];
     for (int i = 0; i < NUMBER_OF_ALIENS / 3; i++) {
         Enemy alien(i, alienSpeed, 1);
-        alien.setLocation(i * 75, alien.getSprite().getGlobalBounds().height / 2);
+        alien.setLocation(i * 75, alien.getSprite().getGlobalBounds().height / 2 + 60);
         alienArray[i] = alien;
     }
     for (int i = NUMBER_OF_ALIENS / 3; i < 2 * NUMBER_OF_ALIENS / 3; i++) {
         Enemy alien(i, alienSpeed, 2);
-        alien.setLocation((i - NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 60);
+        alien.setLocation((i - NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 60 + 60);
         alienArray[i] = alien;
     }
 
     for (int i = 2 * NUMBER_OF_ALIENS / 3; i < NUMBER_OF_ALIENS; i++) {
         Enemy alien(i, alienSpeed, 3);
-        alien.setLocation((i - 2 * NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 90);
+        alien.setLocation((i - 2 * NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 90 + 60);
         alienArray[i] = alien;
     }
 
@@ -106,6 +113,13 @@ int main() {
             }
         }
 
+        text.setString("SCORE<1>");
+        text.setPosition(0, 0);
+        window.draw(text);
+
+        score_text.setString(to_string(playerScore));
+        score_text.setPosition(30, 40);
+        window.draw(score_text);
 
         sf::Time alienclock = alienClock.getElapsedTime();
         if (direction && alienArray[NUMBER_OF_ALIENS - 1].getSprite().getPosition().x + alienArray[NUMBER_OF_ALIENS - 1].getSprite().getGlobalBounds().width + alienArray[NUMBER_OF_ALIENS - 1].getSpeed() * deltaTime > WIDTH) {
@@ -185,9 +199,18 @@ int main() {
                     music.playExplosion();
                 alienArray[i].kill();
                 bullet.kill();
+                if (alienArray[i].getType() == 3) {
+                    playerScore += 10;
+                } else if (alienArray[i].getType() == 2) {
+                    playerScore += 20;
+                } else if (alienArray[i].getType() == 1) {
+                    playerScore += 30;
+                }
+
             }
         }
         if (CollisionManager::collidesWith(enemybullet, player) && player.isAlive() && enemybullet.isAlive()) {
+            music.playExplosion();
             player.kill();
             winner = false;
             gameOver = true;
@@ -225,7 +248,7 @@ int main() {
                 win.draw(window);
             }
             else {
-                lose.draw(window);
+                lose.draw(window, playerScore);
             }
             window.display();
         }

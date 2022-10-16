@@ -103,4 +103,7 @@
   <ItemGroup>
     <None Include="background.ogg" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="space_invaders.ttf" />
+  </ItemGroup>
 </Project>

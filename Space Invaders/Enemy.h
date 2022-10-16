@@ -16,6 +16,7 @@ public:
     void kill();
     bool isAlive();
     float getSpeed() const;
+    int getType() const;
     void draw(sf::RenderWindow& win);
 private:
     sf::Sprite sprite;

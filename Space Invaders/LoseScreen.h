@@ -14,7 +14,7 @@ public:
     LoseScreen();
     sf::Sprite& getSprite();
     void setLocation(float, float);
-    void draw(sf::RenderWindow& win);
+    void draw(sf::RenderWindow& win, int playerScore);
 private:
     sf::Sprite sprite;
     sf::Texture texture;

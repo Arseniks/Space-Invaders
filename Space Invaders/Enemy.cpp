@@ -4,10 +4,12 @@
 
 using namespace std;
 
-Enemy::Enemy(const int id, float sp, int type) {
+Enemy::Enemy(const int id, float sp, int tp) {
     alive = true;
 
     speed = sp;
+
+    type = tp;
 
     if (!texture.loadFromFile("page.png"))
         throw invalid_argument("Enemy not loaded!");
@@ -49,4 +51,8 @@ void Enemy::draw(sf::RenderWindow& win) {
 
 float Enemy::getSpeed() const {
     return speed;
+}
+
+int Enemy::getType() const {
+    return type;
 }
