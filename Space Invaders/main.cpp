@@ -37,18 +37,18 @@ int main() {
 
     Enemy alienArray[NUMBER_OF_ALIENS];
     for (int i = 0; i < NUMBER_OF_ALIENS / 3; i++) {
-        Enemy alien(i, alienSpeed);
+        Enemy alien(i, alienSpeed, 1);
         alien.setLocation(i * 75, alien.getSprite().getGlobalBounds().height / 2);
         alienArray[i] = alien;
     }
     for (int i = NUMBER_OF_ALIENS / 3; i < 2 * NUMBER_OF_ALIENS / 3; i++) {
-        Enemy alien(i, alienSpeed);
-        alien.setLocation((i - NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 45);
+        Enemy alien(i, alienSpeed, 2);
+        alien.setLocation((i - NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 60);
         alienArray[i] = alien;
     }
 
     for (int i = 2 * NUMBER_OF_ALIENS / 3; i < NUMBER_OF_ALIENS; i++) {
-        Enemy alien(i, alienSpeed);
+        Enemy alien(i, alienSpeed, 3);
         alien.setLocation((i - 2 * NUMBER_OF_ALIENS / 3) * 75, alien.getSprite().getGlobalBounds().height / 2 + 90);
         alienArray[i] = alien;
     }

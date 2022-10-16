@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Enemy::Enemy(const int id, float sp)
+Enemy::Enemy(const int id, float sp, int type)
 {
     alive = true;
 
@@ -14,8 +14,17 @@ Enemy::Enemy(const int id, float sp)
         throw invalid_argument("Enemy not loaded!");
 
     sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(32, 11, 15, 12));
-    sprite.scale(sf::Vector2f(4, 4));
+
+    if (type == 1) {
+        sprite.setTextureRect(sf::IntRect(32, 11, 15, 12));
+        sprite.scale(sf::Vector2f(4, 4));
+    } else if (type == 2) {
+        sprite.setTextureRect(sf::IntRect(34, 0, 15, 12));
+        sprite.scale(sf::Vector2f(4, 4));
+    } else if (type == 3) {
+        sprite.setTextureRect(sf::IntRect(31, 44, 15, 12));
+        sprite.scale(sf::Vector2f(4, 4));
+    }
 }
 
 sf::Sprite& Enemy::getSprite() {

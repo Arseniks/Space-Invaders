@@ -10,7 +10,7 @@
 class Enemy {
 public:
     Enemy() {};
-    Enemy(const int, float);
+    Enemy(const int, float, int);
     sf::Sprite& getSprite();
     void setLocation(float, float);
     void kill();
@@ -22,6 +22,7 @@ private:
     sf::Texture texture;
     bool alive;
     float speed;
+    int type;
 };
 
 
