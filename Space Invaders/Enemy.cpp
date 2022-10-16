@@ -4,8 +4,7 @@
 
 using namespace std;
 
-Enemy::Enemy(const int id, float sp, int type)
-{
+Enemy::Enemy(const int id, float sp, int type) {
     alive = true;
 
     speed = sp;

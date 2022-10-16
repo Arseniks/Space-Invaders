@@ -39,6 +39,12 @@
     <ClCompile Include="EnemyBullet.cpp">
       <Filter>Исходные файлы\source</Filter>
     </ClCompile>
+    <ClCompile Include="LoseScreen.cpp">
+      <Filter>Исходные файлы\source</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScreen.cpp">
+      <Filter>Исходные файлы\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -59,12 +65,24 @@
     <ClInclude Include="EnemyBullet.h">
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
+    <ClInclude Include="LoseScreen.h">
+      <Filter>Исходные файлы\source</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScreen.h">
+      <Filter>Исходные файлы\source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="page.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="EnemyBullet.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="lose-page.jpg">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="win-page.jpg">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

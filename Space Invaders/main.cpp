@@ -9,6 +9,8 @@
 #include "EnemyBullet.h"
 #include "Enemy.h"
 #include "CollisionManager.h"
+#include "LoseScreen.h"
+#include "WinScreen.h"
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -28,6 +30,9 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Space Invaders");
     window.setVerticalSyncEnabled(true);
+
+    WinScreen win;
+    LoseScreen lose;
 
     Bullet bullet(0, bulletSpeed);
     EnemyBullet enemybullet(0, enemybulletSpeed);
@@ -207,10 +212,10 @@ int main() {
             window.display();
         } else {
             if (winner) {
-                return EXIT_SUCCESS;
+                win.draw(window);
             }
             else {
-                return EXIT_SUCCESS;
+                lose.draw(window);
             }
             window.display();
         }
