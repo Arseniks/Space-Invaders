@@ -138,6 +138,7 @@
     <ClCompile Include="LoseScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="WinScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="LoseScreen.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="WinScreen.h" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +157,13 @@
     <Image Include="lose-page.jpg" />
     <Image Include="page.png" />
     <Image Include="win-page.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="ship_explode.wav" />
+    <Media Include="shoot.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="background.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -11,6 +11,7 @@
 #include "CollisionManager.h"
 #include "LoseScreen.h"
 #include "WinScreen.h"
+#include "SoundManager.h"
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -30,6 +31,9 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Space Invaders");
     window.setVerticalSyncEnabled(true);
+
+    SoundManager music;
+    music.playBackgroundMusic();
 
     WinScreen win;
     LoseScreen lose;
@@ -83,6 +87,7 @@ int main() {
                 if (!bullet.isAlive() && !gameOver) {
                     bullet.spawn(true);
                     bullet.setLocation(player.getSprite().getPosition().x + 31, player.getSprite().getPosition().y - 15);
+                    music.playLazer();
                 }
             }
         }
@@ -121,7 +126,7 @@ int main() {
 
         int shoutingenemy = 0 + rand() % (NUMBER_OF_ALIENS - 1);
 
-        if (alienclock.asSeconds() > 1) {
+        if (alienclock.asSeconds() > 0.7) {
             if (direction == 1 && alienArray[NUMBER_OF_ALIENS - 1].getSprite().getPosition().x < WIDTH) {
                 for (size_t i = 0; i < NUMBER_OF_ALIENS; i++) {
                     alienArray[i].getSprite().move(alienArray[i].getSpeed() * deltaTime, 0.f);
@@ -167,6 +172,8 @@ int main() {
 
         for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
             if (CollisionManager::collidesWith(player, alienArray[i]) && alienArray[i].isAlive()) {
+                if (!gameOver)
+                    music.playExplosion();
                 player.kill();
                 winner = false;
                 gameOver = true;
@@ -174,6 +181,8 @@ int main() {
         }
         for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
             if (CollisionManager::collidesWith(bullet, alienArray[i]) && alienArray[i].isAlive() && bullet.isAlive()) {
+                if (!gameOver)
+                    music.playExplosion();
                 alienArray[i].kill();
                 bullet.kill();
             }
@@ -211,6 +220,7 @@ int main() {
 
             window.display();
         } else {
+            music.pauseBackgroundMusic();
             if (winner) {
                 win.draw(window);
             }

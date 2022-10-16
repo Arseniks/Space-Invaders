@@ -45,6 +45,9 @@
     <ClCompile Include="WinScreen.cpp">
       <Filter>Исходные файлы\source</Filter>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Исходные файлы\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -71,6 +74,9 @@
     <ClInclude Include="WinScreen.h">
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Исходные файлы\source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="page.png">
@@ -85,5 +91,16 @@
     <Image Include="win-page.jpg">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="shoot.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+    <Media Include="ship_explode.wav">
+      <Filter>Файлы ресурсов</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="background.ogg" />
   </ItemGroup>
 </Project>
