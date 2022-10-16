@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include "Player.h"
 #include "Bullet.h"
+#include "EnemyBullet.h"
 #include "Enemy.h"
 #include "CollisionManager.h"
 
@@ -18,7 +19,8 @@ using namespace std;
 int main() {
     const float shipSpeed = 400.f;
     const int alienSpeed = 1000;
-    const float bulletSpeed = 500.f;
+    const float bulletSpeed = 20.f;
+    const float enemybulletSpeed = 15.f;
     bool gameOver = false;
     bool winner = false;
 
@@ -28,6 +30,7 @@ int main() {
     window.setVerticalSyncEnabled(true);
 
     Bullet bullet(0, bulletSpeed);
+    EnemyBullet enemybullet(0, enemybulletSpeed);
 
     Ship player(0, shipSpeed);
     player.setLocation((WIDTH / 2) - (player.getSprite().getGlobalBounds().width / 2), HEIGHT - player.getSprite().getGlobalBounds().height);
@@ -60,6 +63,9 @@ int main() {
     sf::Clock bulletClock;
     bulletClock.restart().asSeconds();
 
+    sf::Clock enemybulletClock;
+    enemybulletClock.restart().asSeconds();
+
     while (window.isOpen()) {
         float deltaTime = clock.restart().asSeconds();
 
@@ -90,6 +96,7 @@ int main() {
             }
         }
 
+
         sf::Time alienclock = alienClock.getElapsedTime();
         if (direction && alienArray[NUMBER_OF_ALIENS - 1].getSprite().getPosition().x + alienArray[NUMBER_OF_ALIENS - 1].getSprite().getGlobalBounds().width + alienArray[NUMBER_OF_ALIENS - 1].getSpeed() * deltaTime > WIDTH) {
             direction = 0;
@@ -107,28 +114,52 @@ int main() {
             alienClock.restart();
         }
 
+        int shoutingenemy = 0 + rand() % (NUMBER_OF_ALIENS - 1);
+
         if (alienclock.asSeconds() > 1) {
             if (direction == 1 && alienArray[NUMBER_OF_ALIENS - 1].getSprite().getPosition().x < WIDTH) {
                 for (size_t i = 0; i < NUMBER_OF_ALIENS; i++) {
                     alienArray[i].getSprite().move(alienArray[i].getSpeed() * deltaTime, 0.f);
+                    if (i == shoutingenemy && alienArray[i].isAlive()) {
+                        if (!enemybullet.isAlive() && !gameOver) {
+                            enemybullet.spawn(true);
+                            enemybullet.setLocation(alienArray[i].getSprite().getPosition().x + 31, alienArray[i].getSprite().getPosition().y + 15);
+                        }
+                    }
                 }
                 alienClock.restart();
             }
             else if (direction == 0 && alienArray[0].getSprite().getPosition().x > 0) {
                 for (size_t i = 0; i < NUMBER_OF_ALIENS; i++) {
                     alienArray[i].getSprite().move(-(alienArray[i].getSpeed() * deltaTime), 0.f);
+                    if (i == shoutingenemy && alienArray[i].isAlive()) {
+                        if (!enemybullet.isAlive() && !gameOver) {
+                            enemybullet.spawn(true);
+                            enemybullet.setLocation(alienArray[i].getSprite().getPosition().x + 31, alienArray[i].getSprite().getPosition().y + 15);
+                        }
+                    }
                 }
                 alienClock.restart();
             }
 
         }
+
+        sf::Time enemybulletclock = enemybulletClock.getElapsedTime();
+        if (enemybulletclock.asSeconds() > 1.0) {
+            if (enemybullet.isAlive() && !gameOver) {
+                enemybullet.draw(window);
+                enemybullet.getSprite().move(0.f, enemybulletSpeed);
+            }
+        }
+
         sf::Time bulletclock = bulletClock.getElapsedTime();
         if (bulletclock.asSeconds() > 1.0) {
             if (bullet.isAlive() && !gameOver) {
                 bullet.draw(window);
-                bullet.getSprite().move(0.f, -20);
+                bullet.getSprite().move(0.f, -bulletSpeed);
             }
         }
+
         for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
             if (CollisionManager::collidesWith(player, alienArray[i]) && alienArray[i].isAlive()) {
                 player.kill();
@@ -142,6 +173,11 @@ int main() {
                 bullet.kill();
             }
         }
+        if (CollisionManager::collidesWith(enemybullet, player) && player.isAlive() && enemybullet.isAlive()) {
+            player.kill();
+            winner = false;
+            gameOver = true;
+        }
         int deadAliens = 0;
         for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
             if (!alienArray[i].isAlive()) {
@@ -154,6 +190,9 @@ int main() {
         }
         if (bullet.getSprite().getPosition().y < 0) {
             bullet.kill();
+        }
+        if (enemybullet.getSprite().getPosition().y > HEIGHT) {
+            enemybullet.kill();
         }
         if (!gameOver) {
             for (size_t i = 0; i < NUMBER_OF_ALIENS; i++) {

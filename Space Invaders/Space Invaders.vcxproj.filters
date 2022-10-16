@@ -36,6 +36,9 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Исходные файлы\source</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
+      <Filter>Исходные файлы\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -53,9 +56,15 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
+      <Filter>Исходные файлы\source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="page.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="EnemyBullet.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>
