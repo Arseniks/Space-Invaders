@@ -12,12 +12,11 @@
 #include "Barricade.h"
 #include "CollisionManager.h"
 #include "LoseScreen.h"
-#include "WinScreen.h"
 #include "SoundManager.h"
 
 #define WIDTH 800
 #define HEIGHT 600
-#define NUMBER_OF_ALIENS 7 * 3
+#define NUMBER_OF_ALIENS 5 * 3
 
 using namespace std;
 
@@ -25,9 +24,8 @@ int main() {
     const float shipSpeed = 400.f;
     const int alienSpeed = 1000;
     const float bulletSpeed = 20.f;
-    const float enemybulletSpeed = 15.f;
+    const float enemybulletSpeed = 10.f;
     bool gameOver = false;
-    bool winner = false;
     int playerScore = 0;
 
     sf::Font font; 
@@ -43,7 +41,6 @@ int main() {
     SoundManager music;
     music.playBackgroundMusic();
 
-    WinScreen win;
     LoseScreen lose;
 
     Bullet bullet(0, bulletSpeed);
@@ -198,7 +195,6 @@ int main() {
                     music.playExplosion();
                 }
                 player.kill();
-                winner = false;
                 gameOver = true;
             }
         }
@@ -222,7 +218,6 @@ int main() {
         if (CollisionManager::collidesWith(enemybullet, player) && player.isAlive() && enemybullet.isAlive()) {
             music.playExplosion();
             player.kill();
-            winner = false;
             gameOver = true;
         }
         if (CollisionManager::collidesWith(enemybullet, barricade_1) && enemybullet.isAlive() && barricade_1.isAlive()) {
@@ -256,8 +251,21 @@ int main() {
             }
         }
         if (deadAliens == NUMBER_OF_ALIENS) {
-            winner = true;
-            gameOver = true;
+            for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
+                alienArray[i].reborn();
+            }
+            for (int i = 0; i < NUMBER_OF_ALIENS / 3; i++) {
+                alienArray[i].setLocation(i * 75, alienArray[i].getSprite().getGlobalBounds().height / 2 + 60);
+            }
+            for (int i = NUMBER_OF_ALIENS / 3; i < 2 * NUMBER_OF_ALIENS / 3; i++) {
+                alienArray[i].setLocation((i - NUMBER_OF_ALIENS / 3) * 75, alienArray[i].getSprite().getGlobalBounds().height / 2 + 60 + 60);
+            }
+
+            for (int i = 2 * NUMBER_OF_ALIENS / 3; i < NUMBER_OF_ALIENS; i++) {
+                alienArray[i].setLocation((i - 2 * NUMBER_OF_ALIENS / 3) * 75, alienArray[i].getSprite().getGlobalBounds().height / 2 + 90 + 60);
+            }
+
+            direction = 1;
         }
         if (bullet.getSprite().getPosition().y < 0) {
             bullet.kill();
@@ -280,18 +288,13 @@ int main() {
             if (barricade_2.isAlive()) {
                 barricade_2.draw(window);
             }
-            if (barricade_2.isAlive()) {
+            if (barricade_3.isAlive()) {
                 barricade_3.draw(window);
             }
             window.display();
         } else {
             music.pauseBackgroundMusic();
-            if (winner) {
-                win.draw(window);
-            }
-            else {
-                lose.draw(window, playerScore);
-            }
+            lose.draw(window, playerScore);
             window.display();
         }
     }

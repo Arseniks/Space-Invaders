@@ -42,9 +42,6 @@
     <ClCompile Include="LoseScreen.cpp">
       <Filter>Исходные файлы\source</Filter>
     </ClCompile>
-    <ClCompile Include="WinScreen.cpp">
-      <Filter>Исходные файлы\source</Filter>
-    </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Исходные файлы\source</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
     <ClInclude Include="LoseScreen.h">
-      <Filter>Исходные файлы\source</Filter>
-    </ClInclude>
-    <ClInclude Include="WinScreen.h">
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">

@@ -140,7 +140,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="WinScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Barricade.h" />
@@ -152,7 +151,6 @@
     <ClInclude Include="LoseScreen.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="WinScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="EnemyBullet.png" />

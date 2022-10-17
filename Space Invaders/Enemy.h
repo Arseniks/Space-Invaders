@@ -15,6 +15,7 @@ public:
     void setLocation(float, float);
     void kill();
     bool isAlive();
+    void reborn();
     float getSpeed() const;
     int getType() const;
     void draw(sf::RenderWindow& win);

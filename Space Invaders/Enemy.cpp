@@ -49,6 +49,10 @@ void Enemy::draw(sf::RenderWindow& win) {
     win.draw(sprite);
 }
 
+void Enemy::reborn() {
+    alive = true;
+}
+
 float Enemy::getSpeed() const {
     return speed;
 }
