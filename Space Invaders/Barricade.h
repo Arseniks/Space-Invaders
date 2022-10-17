@@ -1,5 +1,5 @@
 #ifndef Barricade_h
-#endif Barricade_h
+#define Barricade_h
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -20,3 +20,5 @@ private:
     bool alive;
     int health;
 };
+
+#endif

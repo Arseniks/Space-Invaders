@@ -52,11 +52,11 @@ int main() {
     Ship player(0, shipSpeed);
     player.setLocation((WIDTH / 2) - (player.getSprite().getGlobalBounds().width / 2), HEIGHT - player.getSprite().getGlobalBounds().height);
 
-    Barricade barricade_1(1, 3);
+    Barricade barricade_1(0, 3);
     barricade_1.setLocation(100, 430);
-    Barricade barricade_2(2, 3);
+    Barricade barricade_2(1, 3);
     barricade_2.setLocation(300, 430);
-    Barricade barricade_3(3, 3);
+    Barricade barricade_3(2, 3);
     barricade_3.setLocation(500, 430);
 
     Enemy alienArray[NUMBER_OF_ALIENS];
@@ -193,14 +193,16 @@ int main() {
         }
 
         for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
-            if (CollisionManager::collidesWith(player, alienArray[i]) && alienArray[i].isAlive()) {
-                if (!gameOver)
+            if (CollisionManager::collidesWith(barricade_1, alienArray[i]) && alienArray[i].isAlive() && barricade_1.isAlive()) {
+                if (!gameOver) {
                     music.playExplosion();
+                }
                 player.kill();
                 winner = false;
                 gameOver = true;
             }
         }
+
         for (int i = 0; i < NUMBER_OF_ALIENS; i++) {
             if (CollisionManager::collidesWith(bullet, alienArray[i]) && alienArray[i].isAlive() && bullet.isAlive()) {
                 if (!gameOver)
@@ -222,6 +224,30 @@ int main() {
             player.kill();
             winner = false;
             gameOver = true;
+        }
+        if (CollisionManager::collidesWith(enemybullet, barricade_1) && enemybullet.isAlive() && barricade_1.isAlive()) {
+            enemybullet.kill();
+            barricade_1.destroy();
+        }
+        if (CollisionManager::collidesWith(enemybullet, barricade_2) && enemybullet.isAlive() && barricade_2.isAlive()) {
+            enemybullet.kill();
+            barricade_2.destroy();
+        }
+        if (CollisionManager::collidesWith(enemybullet, barricade_3) && enemybullet.isAlive() && barricade_3.isAlive()) {
+            enemybullet.kill();
+            barricade_3.destroy();
+        }
+        if (CollisionManager::collidesWith(bullet, barricade_1) && bullet.isAlive() && barricade_1.isAlive()) {
+            bullet.kill();
+            barricade_1.destroy();
+        }
+        if (CollisionManager::collidesWith(bullet, barricade_2) && bullet.isAlive() && barricade_2.isAlive()) {
+            bullet.kill();
+            barricade_2.destroy();
+        }
+        if (CollisionManager::collidesWith(bullet, barricade_3) && bullet.isAlive() && barricade_3.isAlive()) {
+            bullet.kill();
+            barricade_3.destroy();
         }
         int deadAliens = 0;
         for (int i = 0; i < NUMBER_OF_ALIENS; i++) {

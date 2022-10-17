@@ -42,7 +42,6 @@ void Barricade::destroy() {
 
         sprite.setTexture(texture);
         sprite.setTextureRect(sf::IntRect(173, 88, 28, 20));
-        sprite.scale(sf::Vector2f(4, 4));
     } else if (health == 2) {
         health--;
         if (!texture.loadFromFile("page.png"))
@@ -50,7 +49,6 @@ void Barricade::destroy() {
 
         sprite.setTexture(texture);
         sprite.setTextureRect(sf::IntRect(128, 88, 28, 20));
-        sprite.scale(sf::Vector2f(4, 4));
     } else if (health == 1) {
         health--;
         if (!texture.loadFromFile("page.png"))
@@ -58,7 +56,6 @@ void Barricade::destroy() {
 
         sprite.setTexture(texture);
         sprite.setTextureRect(sf::IntRect(38, 88, 28, 20));
-        sprite.scale(sf::Vector2f(4, 4));
     } else {
         kill();
     }

@@ -26,5 +26,4 @@ private:
     int type;
 };
 
-
 #endif
