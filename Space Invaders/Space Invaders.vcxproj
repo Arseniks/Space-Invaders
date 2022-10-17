@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Barricade.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="WinScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Barricade.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Enemy.h" />

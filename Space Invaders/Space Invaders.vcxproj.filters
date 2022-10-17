@@ -48,6 +48,9 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Исходные файлы\source</Filter>
     </ClCompile>
+    <ClCompile Include="Barricade.cpp">
+      <Filter>Исходные файлы\source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -75,6 +78,9 @@
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
+      <Filter>Исходные файлы\source</Filter>
+    </ClInclude>
+    <ClInclude Include="Barricade.h">
       <Filter>Исходные файлы\source</Filter>
     </ClInclude>
   </ItemGroup>

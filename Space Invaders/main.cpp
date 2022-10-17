@@ -9,6 +9,7 @@
 #include "Bullet.h"
 #include "EnemyBullet.h"
 #include "Enemy.h"
+#include "Barricade.h"
 #include "CollisionManager.h"
 #include "LoseScreen.h"
 #include "WinScreen.h"
@@ -50,6 +51,13 @@ int main() {
 
     Ship player(0, shipSpeed);
     player.setLocation((WIDTH / 2) - (player.getSprite().getGlobalBounds().width / 2), HEIGHT - player.getSprite().getGlobalBounds().height);
+
+    Barricade barricade_1(1, 3);
+    barricade_1.setLocation(100, 430);
+    Barricade barricade_2(2, 3);
+    barricade_2.setLocation(300, 430);
+    Barricade barricade_3(3, 3);
+    barricade_3.setLocation(500, 430);
 
     Enemy alienArray[NUMBER_OF_ALIENS];
     for (int i = 0; i < NUMBER_OF_ALIENS / 3; i++) {
@@ -240,7 +248,15 @@ int main() {
             if (player.isAlive()) {
                 player.draw(window);
             }
-
+            if (barricade_1.isAlive()) {
+                barricade_1.draw(window);
+            }
+            if (barricade_2.isAlive()) {
+                barricade_2.draw(window);
+            }
+            if (barricade_2.isAlive()) {
+                barricade_3.draw(window);
+            }
             window.display();
         } else {
             music.pauseBackgroundMusic();
