@@ -1,9 +1,11 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <list>
 #include <string>
+#include <algorithm>
 #include <stdexcept>
 #include "Player.h"
 #include "Bullet.h"
@@ -31,7 +33,6 @@ int main() {
     sf::Font font; 
     font.loadFromFile("space_invaders.ttf");
     sf::Text text("", font, 25);
-    sf::Text score_text("", font, 25);
 
     srand(time(NULL));
 
@@ -122,9 +123,29 @@ int main() {
         text.setPosition(0, 0);
         window.draw(text);
 
-        score_text.setString(to_string(playerScore));
-        score_text.setPosition(30, 40);
-        window.draw(score_text);
+        text.setString("HI-SCORE");
+        text.setPosition(310, 0);
+        window.draw(text);
+
+        text.setString("SCORE<2>");
+        text.setPosition(650, 0);
+        window.draw(text);
+
+        text.setString(to_string(playerScore));
+        text.setPosition(30, 40);
+        window.draw(text);
+
+        ifstream fin("hi-score.txt");
+        int hi_score = 0;
+        string number;
+        fin >> number;
+        hi_score = stoi(number);
+
+        text.setString(to_string(hi_score));
+        text.setPosition(350, 40);
+        window.draw(text);
+
+        fin.close();
 
         sf::Time alienclock = alienClock.getElapsedTime();
         if (direction && alienArray[NUMBER_OF_ALIENS - 1].getSprite().getPosition().x + alienArray[NUMBER_OF_ALIENS - 1].getSprite().getGlobalBounds().width + alienArray[NUMBER_OF_ALIENS - 1].getSpeed() * deltaTime > WIDTH) {
@@ -294,6 +315,12 @@ int main() {
             window.display();
         } else {
             music.pauseBackgroundMusic();
+
+            ofstream fout("hi-score.txt");
+            fout.write("", 0);
+            fout << max(playerScore, hi_score);
+            fout.close();
+
             lose.draw(window, playerScore);
             window.display();
         }
